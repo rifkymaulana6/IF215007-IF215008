@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKOKO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Form Barang Masuk</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
+                        <input type="text" class="form-control" id="nama">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Harga Barang</label>
+                        <input type="text" class="form-control" id="harga">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Jumlah Barang</label>
+                        <input type="text" class="form-control" id="jumlah">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Nama Barang</th>
+                            <th scope="col">Harga Barang</th>
+                            <th scope="col">Jumlah Barang</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daftar-barang">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    
+    <script>
+        function tampilkanBarang() {
+            const dataTersimpan = localStorage.getItem("dataTersimpan");
+            var dataTersimpanObjectArray = JSON.parse(dataTersimpan);
+            if(dataTersimpanObjectArray === null) {
+                dataTersimpanObjectArray = [];
+            }
+
+            const daftarBarang = document.getElementById("daftar-barang");
+
+            let isiDaftarBarang = ``;
+
+            dataTersimpanObjectArray.forEach(function(dataTersimpanObject, index) {
+                isiDaftarBarang += `
+                <tr>
+                            <th scope="row">${index + 1}</th>
+                            <td>${dataTersimpanObject.nama}</td>
+                            <td>${dataTersimpanObject.harga}</td>
+                            <td>${dataTersimpanObject.jumlah}</td>
+                        </tr>
+                `;
+            });
+
+            daftarBarang.innerHTML = isiDaftarBarang;
+
+        }
+
+        tampilkanBarang();
+
+        var inputNama = document.getElementById("nama");
+        var inputHarga = document.getElementById("harga");
+        var inputJumlah = document.getElementById("jumlah");
+        var inputButton = document.getElementById("submit");
+
+        inputButton.onclick = function(perwakilanEvent) {
+            const nama = inputNama.value;
+            const harga = inputHarga.value;
+            const jumlah = inputJumlah.value;
+            const pesan = `Data dari ${nama} dengan harga Rp.${harga} sebanyak ${jumlah}pcs, telah dikirim!`;
+            const data = {
+                nama,
+                harga,
+                jumlah,
+            };
+
+            console.log(data);
+
+            const dataTersimpan = localStorage.getItem("dataTersimpan");
+            const dataTersimpanObjectArray = JSON.parse(dataTersimpan)
+
+            if(dataTersimpan === null) {
+                localStorage.setItem("dataTersimpan", JSON.stringify([data]));
+            } else {
+                dataTersimpanObjectArray.push(data);
+                localStorage.setItem("dataTersimpan", JSON.stringify(dataTersimpanObjectArray));
+            }
+
+            tampilkanBarang();
+        };
+
+    </script>
+</body>
+</html>
