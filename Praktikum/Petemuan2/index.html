@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="form-container">
+        <form action="http://localhost:3000/barang" method="post">
+            <input name="nama" placeholder="Nama Barang">
+            <input name="harga" placeholder="Harga Barang">
+            <input name="jumlah" placeholder="Jumlah Barang">
+            <input type="submit" value="POST via Content Type Form URL Encoded"></input>
+            <button id="post-json-button">POST via Content Type JSON</button>
+        </form>
+    </div>
+
+    <div id="table-container">
+        <table border="1">
+            <thead>
+                <td>Nama Barang</td>
+                <td>Harga Barang</td>
+                <td>Jumlah Barang</td>
+            </thead>
+        </table>
+    </div>
+
+    <script>
+        function ambilElement(namaElement){
+            return document.getElementsByName(namaElement)[0].value
+        }
+
+        var nama = ambilElement("nama");
+        var harga = ambilElement("harga");
+        var jumlah = ambilElement("jumlah");
+        var postJSONButton = document.getElementById("post-json-button");
+
+        postJSONButton.onclick
+    </script>
+</body>
+</html>
